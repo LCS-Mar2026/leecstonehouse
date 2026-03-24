@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lee C. Stonehouse | Board Advisor — AI in HR</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@600;700&display=swap');
+:root{--bg:#080E18;--navy:#0C1520;--navy2:#111D2E;--navy3:#162438;--slate:#1E2E42;--border:#1E2D42;--gold:#C8A96E;--gold2:#DFC08A;--gold-dim:#6A5030;--cyan:#7EB8D4;--text:#E8EAF0;--muted:#9AAABB;--green:#6BCB8B;--amber:#D4A020;--orange:#D47840;--purple:#A87EC8;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:'Barlow',sans-serif;font-weight:300;overflow-x:hidden;}
+.grid-bg{position:fixed;inset:0;background-image:linear-gradient(rgba(30,45,66,0.28) 1px,transparent 1px),linear-gradient(90deg,rgba(30,45,66,0.28) 1px,transparent 1px);background-size:48px 48px;pointer-events:none;z-index:0;}
+.orb1{position:fixed;top:-15vh;left:-10vw;width:55vw;height:55vw;background:radial-gradient(circle,rgba(126,184,212,0.05) 0%,transparent 65%);pointer-events:none;z-index:0;}
+.orb2{position:fixed;bottom:-20vh;right:-10vw;width:60vw;height:60vw;background:radial-gradient(circle,rgba(200,169,110,0.04) 0%,transparent 65%);pointer-events:none;z-index:0;}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 48px;height:62px;background:rgba(8,14,24,0.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(200,169,110,0.1);}
+.nav-logo{font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--gold);}
+.nav-cta{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--navy);background:var(--gold);padding:8px 18px;border-radius:2px;text-decoration:none;transition:background 0.2s;}
+.nav-cta:hover{background:var(--gold2);}
+#hero{position:relative;z-index:1;min-height:100vh;display:flex;align-items:center;padding:110px 48px 80px;}
+.hero-layout{max-width:1280px;margin:0 auto;width:100%;display:grid;grid-template-columns:1fr 300px;gap:56px;align-items:start;}
+.hero-eyebrow{display:flex;align-items:center;gap:14px;margin-bottom:22px;}
+.eyebrow-line{width:40px;height:1px;background:var(--gold);}
+.eyebrow-text{font-size:11px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--gold);}
+.hero-name{font-family:'Cormorant Garamond',serif;font-size:clamp(44px,5.5vw,70px);font-weight:600;line-height:1.05;color:var(--text);margin-bottom:6px;}
+.hero-title{font-family:'Barlow Condensed',sans-serif;font-size:clamp(16px,2.2vw,22px);font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:22px;}
+.hero-rule{width:80px;height:2px;background:linear-gradient(90deg,var(--cyan),transparent);margin-bottom:22px;}
+.hero-bio{font-size:15px;font-weight:300;line-height:1.8;color:#B8C8D8;max-width:600px;margin-bottom:28px;}
+.hero-bio strong{color:var(--text);font-weight:500;}
+.hero-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:4px;overflow:hidden;margin-bottom:28px;}
+.hs-item{background:var(--navy);padding:18px 14px;text-align:center;}
+.hs-num{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--gold);line-height:1;margin-bottom:6px;}
+.hs-label{font-size:11px;color:#C0D0DC;line-height:1.5;font-weight:400;}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap;}
+.btn-primary{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--navy);background:var(--gold);padding:13px 24px;border-radius:2px;text-decoration:none;transition:all 0.2s;}
+.btn-primary:hover{background:var(--gold2);transform:translateY(-1px);}
+.btn-secondary{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gold);background:transparent;border:1px solid rgba(200,169,110,0.35);padding:13px 24px;border-radius:2px;text-decoration:none;transition:all 0.2s;}
+.btn-secondary:hover{border-color:var(--gold);background:rgba(200,169,110,0.06);}
+.bio-sidebar{background:rgba(17,29,46,0.85);border:1px solid var(--border);border-radius:4px;overflow:hidden;backdrop-filter:blur(8px);position:sticky;top:82px;}
+.bio-sidebar::before{content:'';display:block;height:2px;background:linear-gradient(90deg,var(--gold),var(--cyan),transparent);}
+.headshot-wrap{width:100%;aspect-ratio:1;overflow:hidden;background:var(--navy3);}
+.headshot-wrap img{width:100%;height:100%;object-fit:cover;object-position:center top;}
+.bio-body{padding:22px;}
+.bio-name{font-family:'Cormorant Garamond',serif;font-size:21px;font-weight:600;color:var(--text);margin-bottom:3px;}
+.bio-role{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:14px;}
+.bio-creds{display:flex;flex-direction:column;gap:7px;margin-bottom:16px;}
+.bio-cred{display:flex;align-items:center;gap:10px;font-size:12px;color:var(--text);}
+.bc-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
+.bio-divider{height:1px;background:var(--border);margin:14px 0;}
+.bio-text{font-size:12px;font-weight:300;color:var(--muted);line-height:1.6;margin-bottom:16px;}
+.bio-li-btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:11px;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--navy);background:var(--gold);border-radius:2px;text-decoration:none;transition:background 0.2s;}
+.bio-li-btn:hover{background:var(--gold2);}
+section{position:relative;z-index:1;}
+.section-inner{max-width:1280px;margin:0 auto;padding:88px 48px;}
+.section-header{margin-bottom:48px;}
+.section-eyebrow{display:flex;align-items:center;gap:12px;margin-bottom:12px;}
+.section-eyebrow span{font-size:10px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--gold);}
+.s-line{width:28px;height:1px;background:var(--gold);}
+.section-title{font-family:'Cormorant Garamond',serif;font-size:clamp(26px,3.2vw,46px);font-weight:600;color:var(--text);line-height:1.1;}
+.section-title em{font-style:normal;color:var(--gold);}
+#themes{background:rgba(11,18,28,0.7);}
+.themes-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:4px;overflow:hidden;}
+.theme-card{background:var(--navy);padding:30px 24px;position:relative;overflow:hidden;transition:background 0.25s;cursor:default;}
+.theme-card:hover{background:var(--navy3);}
+.theme-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;transform:scaleX(0);transform-origin:left;transition:transform 0.3s ease;}
+.theme-card:hover::after{transform:scaleX(1);}
+.tc1::after{background:var(--cyan);}.tc2::after{background:var(--gold);}.tc3::after{background:var(--green);}
+.tc4::after{background:var(--amber);}.tc5::after{background:var(--orange);}.tc6::after{background:var(--purple);}
+.theme-num{font-family:'Cormorant Garamond',serif;font-size:40px;font-weight:700;color:var(--border);line-height:1;margin-bottom:14px;transition:color 0.3s;}
+.theme-card:hover .theme-num{color:var(--slate);}
+.theme-icon{font-size:18px;margin-bottom:12px;display:block;}
+.theme-name{font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--text);margin-bottom:9px;line-height:1.3;}
+.theme-desc{font-size:13px;font-weight:400;color:#C0D0DC;line-height:1.6;}
+#prif{background:var(--bg);}
+.prif-layout{display:grid;grid-template-columns:1fr 1fr;gap:68px;align-items:start;}
+.prif-intro{font-size:15px;font-weight:300;color:#B8C8D8;line-height:1.8;margin-bottom:22px;}
+.prif-intro strong{color:var(--text);font-weight:500;}
+.prif-quote{background:rgba(22,36,56,0.5);border-left:2px solid var(--gold);padding:18px 22px;margin-top:24px;border-radius:0 4px 4px 0;}
+.prif-quote p{font-family:'Cormorant Garamond',serif;font-size:17px;font-style:italic;color:var(--gold2);line-height:1.6;}
+.stack-label{font-size:11px;font-weight:400;color:#B8C8D8;line-height:1.6;padding:14px 18px;background:rgba(22,36,56,0.5);border:1px solid var(--border);border-radius:4px 4px 0 0;border-bottom:none;}
+.stack-label strong{color:var(--gold);display:block;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:5px;}
+.prif-stack{display:flex;flex-direction:column;}
+.prif-layer{display:flex;align-items:center;gap:14px;padding:15px 18px;border:1px solid var(--border);border-bottom:none;background:var(--navy);transition:background 0.2s,border-color 0.2s;cursor:default;}
+.prif-layer:last-child{border-bottom:1px solid var(--border);border-radius:0 0 4px 4px;}
+.prif-layer:hover{background:var(--navy3);border-color:rgba(200,169,110,0.18);}
+.layer-badge{font-size:10px;font-weight:700;letter-spacing:1px;color:#B0BFCC;min-width:50px;font-family:'Barlow Condensed',sans-serif;}
+.layer-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+.layer-name{font-size:14px;font-weight:500;color:var(--text);flex:1;}
+.layer-tech{font-size:11px;color:#B0BFCC;text-align:right;}
+#credentials{background:rgba(11,18,28,0.7);}
+.creds-layout{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start;}
+.creds-grid{display:grid;grid-template-columns:1fr;gap:12px;}
+.cred-card{background:var(--navy);border:1px solid var(--border);border-radius:4px;padding:20px;position:relative;overflow:hidden;transition:border-color 0.2s,background 0.2s;}
+.cred-card:hover{border-color:rgba(200,169,110,0.22);background:var(--navy2);}
+.cred-card::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;}
+.cc-gold::before{background:var(--gold);}.cc-cyan::before{background:var(--cyan);}.cc-green::before{background:var(--green);}
+.cred-icon{font-size:18px;margin-bottom:8px;}
+.cred-title{font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text);margin-bottom:6px;}
+.cred-body{font-size:13px;font-weight:400;color:#C0D0DC;line-height:1.6;}
+.timeline{position:relative;padding-left:24px;}
+.timeline::before{content:'';position:absolute;left:0;top:8px;bottom:8px;width:1px;background:linear-gradient(to bottom,var(--gold),var(--cyan),transparent);}
+.tl-item{position:relative;margin-bottom:22px;}
+.tl-dot{position:absolute;left:-29px;top:5px;width:10px;height:10px;border-radius:50%;background:var(--bg);border:2px solid var(--gold);}
+.tl-date{font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:2px;}
+.tl-role{font-size:14px;font-weight:500;color:var(--text);margin-bottom:2px;}
+.tl-org{font-size:13px;color:#B0BFCC;}
+#contact{background:var(--navy);border-top:1px solid var(--border);}
+.contact-layout{max-width:1280px;margin:0 auto;padding:88px 48px;display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center;}
+.contact-title{font-family:'Cormorant Garamond',serif;font-size:clamp(26px,3.2vw,44px);font-weight:600;color:var(--text);line-height:1.1;margin-bottom:12px;}
+.contact-title em{font-style:normal;color:var(--gold);}
+.contact-sub{font-size:14px;font-weight:300;color:#B0BFCC;line-height:1.7;margin-bottom:28px;}
+.contact-links{display:flex;flex-direction:column;gap:10px;}
+.contact-link{display:flex;align-items:center;gap:12px;font-size:13px;color:var(--text);text-decoration:none;padding:14px 16px;background:rgba(22,36,56,0.5);border:1px solid var(--border);border-radius:4px;transition:all 0.2s;}
+.contact-link:hover{border-color:rgba(200,169,110,0.3);background:var(--navy3);color:var(--gold);}
+.cl-icon{font-size:15px;flex-shrink:0;}
+.cl-label{font-weight:300;color:var(--muted);font-size:10px;display:block;margin-top:1px;}
+.mandate-box{background:rgba(22,36,56,0.4);border:1px solid var(--border);border-radius:4px;padding:28px;position:relative;overflow:hidden;}
+.mandate-box::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold),var(--cyan),transparent);}
+.mandate-title{font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:16px;}
+.mandate-item{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid var(--border);font-size:13px;color:#B8C8D8;}
+.mandate-item:last-child{border-bottom:none;}
+.mi-arr{color:var(--gold);flex-shrink:0;margin-top:2px;font-size:10px;}
+footer{position:relative;z-index:1;background:var(--bg);border-top:1px solid var(--border);padding:22px 48px;display:flex;align-items:center;justify-content:space-between;}
+.footer-left{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--muted);}
+.footer-strip{display:flex;}
+.fs-seg{width:28px;height:3px;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:translateY(0);}}
+.fu{opacity:0;animation:fadeUp 0.65s ease forwards;}
+.d1{animation-delay:.1s;}.d2{animation-delay:.25s;}.d3{animation-delay:.4s;}.d4{animation-delay:.55s;}.d5{animation-delay:.7s;}
+@media(max-width:1080px){.hero-layout{grid-template-columns:1fr;}.bio-sidebar{display:none;}.themes-grid{grid-template-columns:repeat(2,1fr);}.prif-layout,.creds-layout,.contact-layout{grid-template-columns:1fr;gap:44px;}}
+@media(max-width:640px){nav{padding:0 20px;}#hero,.section-inner,.contact-layout{padding-left:20px;padding-right:20px;}.themes-grid{grid-template-columns:1fr;}.hero-stats{grid-template-columns:repeat(2,1fr);}footer{padding:18px 20px;flex-direction:column;gap:12px;}}
+</style>
+</head>
+<body>
+<div class="grid-bg"></div>
+<div class="orb1"></div>
+<div class="orb2"></div>
+
+<nav>
+  <div class="nav-logo">Lee C. Stonehouse</div>
+  <a href="https://www.linkedin.com/in/leesfcipdmba2026/" target="_blank" class="nav-cta">LinkedIn &#8594;</a>
+</nav>
+
+<section id="hero">
+  <div class="hero-layout">
+    <div>
+      <div class="hero-eyebrow fu d1"><div class="eyebrow-line"></div><span class="eyebrow-text">Board Advisor &middot; AI in HR</span></div>
+      <h1 class="hero-name fu d2">Lee C.<br>Stonehouse</h1>
+      <div class="hero-title fu d2">Board Advisor &amp; AI-Enabled HR Architect</div>
+      <div class="hero-rule fu d3"></div>
+      <p class="hero-bio fu d3">My career began inside <strong>UBS and Salomon Smith Barney</strong>, developing equity valuation models and managing fund portfolios before I ever held an HR title. When I moved into senior People leadership, that capital markets background defined what I could see and what I could build.<br><br>I design and deploy <strong>AI-enabled people architecture</strong> for high-growth and regulated businesses, connecting workforce data, conduct analytics, performance governance, and executive intelligence into systems that give leadership genuine visibility rather than retrospective reporting.<br><br>My sweet spot is where a division or business is scaling fast and outgrowing its HR capabilities. The board wants actionable insights with a pre-built index of solutions and robust legal defensibility, not retrospective narrative.</p>
+      <div class="hero-stats fu d4">
+        <div class="hs-item"><div class="hs-num">B2C</div><div class="hs-label">Scale-up<br>5 &rarr; 275 people<br>3 years</div></div>
+        <div class="hs-item"><div class="hs-num">Plc</div><div class="hs-label">Regulated division<br>500 &rarr; 1,100 people<br>2 years</div></div>
+        <div class="hs-item"><div class="hs-num">SaaS</div><div class="hs-label">Distributed fintech<br>3 continents<br>2 years</div></div>
+        <div class="hs-item"><div class="hs-num">AM</div><div class="hs-label">Asset management<br>Industry-leading build<br>10 years</div></div>
+      </div>
+      <div class="hero-actions fu d5">
+        <a href="https://www.linkedin.com/in/leesfcipdmba2026/" target="_blank" class="btn-primary">Connect on LinkedIn &#8594;</a>
+        <a href="#contact" class="btn-secondary">Board Enquiries</a>
+      </div>
+    </div>
+    <div class="bio-sidebar fu d3">
+      <div class="headshot-wrap">
+        <img src="Headshot.jpg" alt="Lee C. Stonehouse">
+      </div>
+      <div class="bio-body">
+        <div class="bio-name">Lee C. Stonehouse</div>
+        <div class="bio-role">Board Advisor &middot; AI in HR</div>
+        <div class="bio-creds">
+          <div class="bio-cred"><span class="bc-dot" style="background:var(--gold)"></span>Chartered Fellow CIPD</div>
+          <div class="bio-cred"><span class="bc-dot" style="background:var(--cyan)"></span>MBA &middot; London Business School</div>
+          <div class="bio-cred"><span class="bc-dot" style="background:var(--green)"></span>CIMA</div>
+          <div class="bio-cred"><span class="bc-dot" style="background:var(--amber)"></span>Ex UBS &middot; Salomon Smith Barney</div>
+          <div class="bio-cred"><span class="bc-dot" style="background:var(--muted)"></span>Counter-Terrorism Security Cleared</div>
+        </div>
+        <div class="bio-divider"></div>
+        <p class="bio-text">Capital markets trained. Operating at the intersection of AI, workforce governance, and board-level people strategy for high-growth and regulated businesses.</p>
+        <a href="https://www.linkedin.com/in/leesfcipdmba2026/" target="_blank" class="bio-li-btn">View LinkedIn Profile &#8594;</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="themes">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-eyebrow"><div class="s-line"></div><span>Intellectual Territory</span></div>
+      <h2 class="section-title">Six Areas of <em>Board-Level Expertise</em></h2>
+    </div>
+    <div class="themes-grid">
+      <div class="theme-card tc1"><div class="theme-num">01</div><span class="theme-icon">&#x2B21;</span><div class="theme-name">AI in HR</div><div class="theme-desc">Practical deployment of AI-enabled people architecture. Working systems that deliver real-time workforce intelligence to executive leadership, not aspirational slide decks.</div></div>
+      <div class="theme-card tc2"><div class="theme-num">02</div><span class="theme-icon">&#x25C8;</span><div class="theme-name">People Risk Intelligence</div><div class="theme-desc">Six-layer architecture connecting conduct data, performance signals, and governance outputs into a single boardroom-ready intelligence model. Built on standard enterprise tooling with no proprietary lock-in.</div></div>
+      <div class="theme-card tc3"><div class="theme-num">03</div><span class="theme-icon">&#x25EB;</span><div class="theme-name">Workforce Governance</div><div class="theme-desc">Policy, compliance, and regulatory frameworks that hold under pressure in regulated, high-growth environments where the cost of governance failure is significant.</div></div>
+      <div class="theme-card tc4"><div class="theme-num">04</div><span class="theme-icon">&#x25CE;</span><div class="theme-name">Human Capital Value Protection</div><div class="theme-desc">The workforce as an asset class. ROI on People investment. The CFO conversation most HR leaders cannot have, because they were never trained to think in those terms.</div></div>
+      <div class="theme-card tc5"><div class="theme-num">05</div><span class="theme-icon">&#x25EC;</span><div class="theme-name">Just Culture &amp; Analytics</div><div class="theme-desc">Fairness at scale through data. Conduct equivalence scoring. Consistent disciplinary outcomes. Tribunal risk elimination. Culture as architecture, not a values statement.</div></div>
+      <div class="theme-card tc6"><div class="theme-num">06</div><span class="theme-icon">&#x25ED;</span><div class="theme-name">Board-Level Workforce Insight</div><div class="theme-desc">Executive dashboards, RemCo advisory, and NED-ready workforce reporting. The People leader as a risk and governance peer, not a functional service provider.</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="prif">
+  <div class="section-inner">
+    <div class="prif-layout">
+      <div>
+        <div class="section-header" style="margin-bottom:24px">
+          <div class="section-eyebrow"><div class="s-line"></div><span>Proprietary Framework</span></div>
+          <h2 class="section-title">The People Risk<br><em>Intelligence Framework</em></h2>
+        </div>
+        <p class="prif-intro">The <strong>PRIF</strong> is a six-layer workforce intelligence architecture designed to give executive leadership and boards real-time visibility of people risk, conduct patterns, and governance compliance, in the same analytical language that finance and risk functions have spoken for decades.</p>
+        <p class="prif-intro">An <strong>operating model</strong>, not a product. Built on standard enterprise tooling with no proprietary software lock-in, configured to the specific regulatory and operational context of each business it serves.</p>
+        <div class="prif-quote"><p>"The board wants data, not narrative. PRIF delivers the analytical credibility at a People table that a finance director has had for thirty years."</p></div>
+      </div>
+      <div>
+        <div class="stack-label"><strong>Sample Stack Configuration</strong>SaaS Fintech operating across 50 countries with highly distributed, smaller country teams in a high-trust / high-accountability culture</div>
+        <div class="prif-stack">
+          <div class="prif-layer"><span class="layer-badge">LAYER 0</span><span class="layer-dot" style="background:var(--cyan)"></span><span class="layer-name">Org Design Platform</span><span class="layer-tech">OrgVue</span></div>
+          <div class="prif-layer"><span class="layer-badge">LAYER 1</span><span class="layer-dot" style="background:var(--green)"></span><span class="layer-name">Incident &amp; Conduct Capture</span><span class="layer-tech">Forms + Power Automate</span></div>
+          <div class="prif-layer"><span class="layer-badge">LAYER 2</span><span class="layer-dot" style="background:var(--amber)"></span><span class="layer-name">Conduct Equivalence Model</span><span class="layer-tech">ENC Scoring Engine</span></div>
+          <div class="prif-layer"><span class="layer-badge">LAYER 3</span><span class="layer-dot" style="background:var(--orange)"></span><span class="layer-name">Global Payroll &amp; EOR</span><span class="layer-tech">Papaya Global</span></div>
+          <div class="prif-layer"><span class="layer-badge">LAYER 4</span><span class="layer-dot" style="background:var(--purple)"></span><span class="layer-name">HRIS Master Data</span><span class="layer-tech">HiBob</span></div>
+          <div class="prif-layer"><span class="layer-badge">LAYER 5</span><span class="layer-dot" style="background:var(--gold)"></span><span class="layer-name">Executive Dashboards</span><span class="layer-tech">Azure SQL &middot; Power BI</span></div>
+          <div class="prif-layer"><span class="layer-badge">LAYER 6</span><span class="layer-dot" style="background:var(--text)"></span><span class="layer-name">AI Insight Layer</span><span class="layer-tech">Copilot &middot; Claude API</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="credentials">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-eyebrow"><div class="s-line"></div><span>Background</span></div>
+      <h2 class="section-title">Capital Markets Trained.<br><em>People Architecture Built.</em></h2>
+    </div>
+    <div class="creds-layout">
+      <div class="creds-grid">
+        <div class="cred-card cc-gold"><div class="cred-icon">&#127891;</div><div class="cred-title">Education</div><div class="cred-body">MBA, London Business School &mdash; Strategy &amp; Finance. Wharton School, Investment Management. CIMA. Chartered Fellow CIPD. NASD Series 7 Securities Licensed.</div></div>
+        <div class="cred-card cc-cyan"><div class="cred-icon">&#9878;</div><div class="cred-title">Credentials</div><div class="cred-body">Counter-Terrorism Security Cleared. Compliance &amp; Audit Certified (Reed, 2025&ndash;2030). DBS Enhanced. Board Director experience across PE-backed, regulated, and listed environments.</div></div>
+        <div class="cred-card cc-green"><div class="cred-icon">&#128202;</div><div class="cred-title">Capital Markets</div><div class="cred-body">SVP at UBS managing $120m AUM long-equity mandates. Created the No.1 AUM GPM Growth Fund at Salomon Smith Barney, subsequently acquired by UBS.</div></div>
+      </div>
+      <div>
+        <div class="section-eyebrow" style="margin-bottom:20px"><div class="s-line"></div><span>Career Timeline</span></div>
+        <div class="timeline">
+          <div class="tl-item"><div class="tl-dot"></div><div class="tl-date">2022 &ndash; 2026</div><div class="tl-role">HR Transformation Leader</div><div class="tl-org">Mitie Plc &middot; Regulated Government Contracts &middot; ~1,000 employees</div></div>
+          <div class="tl-item"><div class="tl-dot"></div><div class="tl-date">2020 &ndash; 2022</div><div class="tl-role">Chief People Officer | Board Director</div><div class="tl-org">VC-Backed SaaS Fintech &amp; Big Data &middot; Distributed global teams</div></div>
+          <div class="tl-item"><div class="tl-dot"></div><div class="tl-date">2010 &ndash; 2020</div><div class="tl-role">HR Director</div><div class="tl-org">Venncomm &middot; SaaS Fintech, Tier 1 Hedge Funds &amp; Banks</div></div>
+          <div class="tl-item"><div class="tl-dot"></div><div class="tl-date">2007 &ndash; 2010</div><div class="tl-role">Chief People Officer | Board Director</div><div class="tl-org">IN&apos;N&apos;OUT Autocentres &middot; PE-Backed National Hypergrowth</div></div>
+          <div class="tl-item"><div class="tl-dot" style="border-color:var(--cyan)"></div><div class="tl-date">2002 &ndash; 2007</div><div class="tl-role">Post-Graduate Education &amp; Stealth Start-Up</div><div class="tl-org">LBS MBA &middot; Wharton &middot; CIMA &middot; Early-stage venture development</div></div>
+          <div class="tl-item"><div class="tl-dot" style="border-color:var(--cyan)"></div><div class="tl-date">1995 &ndash; 2002</div><div class="tl-role">Senior Vice President, Investments</div><div class="tl-org">Salomon Smith Barney &middot; UBS &middot; Wall Street</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="contact-layout">
+    <div>
+      <h2 class="contact-title">Selective<br><em>Board &amp; Advisory</em><br>Mandates</h2>
+      <p class="contact-sub">Particularly interested in PE-backed and founder-led businesses between Series B and mid-market, where institutional-grade people architecture needs to be built at pace. Fintech, SaaS, regulated environments, and capital markets adjacents preferred.</p>
+      <div class="contact-links">
+        <a href="https://www.linkedin.com/in/leesfcipdmba2026/" target="_blank" class="contact-link"><span class="cl-icon">in</span><span>linkedin.com/in/leesfcipdmba2026<span class="cl-label">LinkedIn Profile</span></span></a>
+        <a href="mailto:leechristianstonehouse@gmail.com" class="contact-link"><span class="cl-icon">&#x2709;</span><span>leechristianstonehouse@gmail.com<span class="cl-label">Direct Email</span></span></a>
+      </div>
+    </div>
+    <div class="mandate-box">
+      <div class="mandate-title">Current Advisory Interests</div>
+      <div class="mandate-item"><span class="mi-arr">&#8594;</span>PE and VC-backed businesses at Series B to mid-market scale</div>
+      <div class="mandate-item"><span class="mi-arr">&#8594;</span>Fintech, SaaS, and regulated financial services environments</div>
+      <div class="mandate-item"><span class="mi-arr">&#8594;</span>Post-merger integration with people architecture complexity</div>
+      <div class="mandate-item"><span class="mi-arr">&#8594;</span>Boards seeking AI-enabled workforce governance capability</div>
+      <div class="mandate-item"><span class="mi-arr">&#8594;</span>RemCo and NED-level People advisory mandates</div>
+      <div class="mandate-item"><span class="mi-arr">&#8594;</span>Human capital operating partner roles within PE/VC firms</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-left">Lee C. Stonehouse &middot; FCIPD &middot; MBA &middot; Board Advisor</div>
+  <div class="footer-strip">
+    <div class="fs-seg" style="background:var(--cyan)"></div>
+    <div class="fs-seg" style="background:var(--gold)"></div>
+    <div class="fs-seg" style="background:var(--green)"></div>
+    <div class="fs-seg" style="background:var(--amber)"></div>
+    <div class="fs-seg" style="background:var(--orange)"></div>
+    <div class="fs-seg" style="background:var(--purple)"></div>
+  </div>
+</footer>
+</body>
+</html>
