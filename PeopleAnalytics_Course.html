@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>People Analytics: 8-Week Self-Study Programme | Lee C. Stonehouse</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@600;700&display=swap');
+:root{--bg:#080E18;--navy:#0C1520;--navy2:#111D2E;--navy3:#162438;--slate:#1E2E42;--border:#1E2D42;--gold:#C8A96E;--gold2:#DFC08A;--gold-dim:#6A5030;--cyan:#7EB8D4;--text:#E8EAF0;--muted:#6A7A90;--green:#6BCB8B;--amber:#D4A020;--orange:#D47840;--purple:#A87EC8;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:'Barlow',sans-serif;font-weight:300;overflow-x:hidden;}
+.grid-bg{position:fixed;inset:0;background-image:linear-gradient(rgba(30,45,66,0.28) 1px,transparent 1px),linear-gradient(90deg,rgba(30,45,66,0.28) 1px,transparent 1px);background-size:48px 48px;pointer-events:none;z-index:0;}
+
+/* HEADER */
+header{position:relative;z-index:1;background:linear-gradient(135deg,#0c0f14 0%,#141c2a 100%);border-bottom:2px solid var(--gold);padding:36px 40px 28px;}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:20px;}
+.header-eyebrow{font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:10px;}
+.header-title{font-family:'Cormorant Garamond',serif;font-size:clamp(28px,4vw,48px);font-weight:700;color:var(--text);line-height:1.1;}
+.header-title em{font-style:normal;color:var(--gold);}
+.header-sub{font-size:13px;color:var(--muted);margin-top:8px;letter-spacing:0.5px;}
+.header-right{text-align:right;}
+.author-name{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;color:var(--text);}
+.author-creds{display:flex;gap:8px;margin-top:6px;justify-content:flex-end;flex-wrap:wrap;}
+.cred-pill{font-size:10px;font-weight:700;letter-spacing:1.5px;padding:4px 10px;border-radius:2px;text-transform:uppercase;}
+.cp-gold{background:rgba(200,169,110,0.15);color:var(--gold);border:1px solid rgba(200,169,110,0.3);}
+.cp-cyan{background:rgba(126,184,212,0.12);color:var(--cyan);border:1px solid rgba(126,184,212,0.25);}
+
+/* DOWNLOAD BANNER */
+.download-banner{position:relative;z-index:1;background:rgba(200,169,110,0.08);border-bottom:1px solid rgba(200,169,110,0.2);padding:16px 40px;}
+.download-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;}
+.download-text{font-size:14px;color:#c0c4d0;}
+.download-text strong{color:var(--gold);}
+.dl-btn{display:inline-flex;align-items:center;gap:10px;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--navy);background:var(--gold);padding:11px 22px;border-radius:2px;text-decoration:none;transition:background 0.2s;white-space:nowrap;}
+.dl-btn:hover{background:var(--gold2);}
+
+/* TABS */
+.tabs-wrap{position:sticky;top:0;z-index:100;background:rgba(8,14,24,0.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);}
+.tabs{max-width:1100px;margin:0 auto;display:flex;gap:0;padding:0 40px;overflow-x:auto;}
+.tab{padding:14px 16px;font-size:11px;font-weight:700;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;transition:all 0.2s;letter-spacing:1.5px;text-transform:uppercase;white-space:nowrap;flex-shrink:0;}
+.tab:hover{color:var(--text);}
+.tab.active{color:var(--gold);border-bottom-color:var(--gold);}
+
+/* PANEL */
+.panel{display:none;position:relative;z-index:1;}
+.panel.active{display:block;}
+.panel-inner{max-width:1100px;margin:0 auto;padding:40px 40px 80px;}
+
+/* INTRO PANEL */
+.intro-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-bottom:32px;}
+.intro-card{background:var(--navy);border:1px solid var(--border);border-radius:4px;padding:24px;}
+.intro-card h3{font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:14px;}
+.intro-card p{font-size:14px;font-weight:300;color:#9AAABB;line-height:1.7;}
+.intro-card ul{list-style:none;}
+.intro-card ul li{font-size:13px;color:#9AAABB;padding:6px 0;border-bottom:1px solid var(--border);display:flex;gap:10px;}
+.intro-card ul li:last-child{border-bottom:none;}
+.intro-card ul li::before{content:'—';color:var(--gold);flex-shrink:0;}
+.meta-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:4px;overflow:hidden;margin-bottom:32px;}
+.meta-item{background:var(--navy);padding:20px;text-align:center;}
+.meta-num{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:700;color:var(--gold);line-height:1;margin-bottom:4px;}
+.meta-label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;}
+.module-list{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;}
+.ml-item{background:var(--navy);border:1px solid var(--border);border-radius:4px;padding:16px 18px;display:flex;align-items:center;gap:14px;text-decoration:none;transition:all 0.2s;cursor:pointer;}
+.ml-item:hover{border-color:rgba(200,169,110,0.3);background:var(--navy2);}
+.ml-num{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:700;color:var(--gold);opacity:0.5;min-width:28px;}
+.ml-title{font-size:13px;font-weight:600;color:var(--text);}
+.ml-tag{font-size:10px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-top:2px;}
+
+/* MODULE PANELS */
+.mod-header{margin-bottom:32px;}
+.mod-eyebrow{display:flex;align-items:center;gap:12px;margin-bottom:12px;}
+.mod-week{font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--gold);}
+.mod-badge{font-size:10px;font-weight:700;letter-spacing:1.5px;padding:3px 10px;border-radius:20px;text-transform:uppercase;}
+.mod-title{font-family:'Cormorant Garamond',serif;font-size:clamp(24px,3.5vw,40px);font-weight:700;color:var(--text);margin-bottom:4px;}
+.mod-rule{width:60px;height:2px;background:linear-gradient(90deg,var(--cyan),transparent);}
+.mod-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px;}
+.mod-card{background:var(--navy);border:1px solid var(--border);border-radius:4px;padding:22px;position:relative;overflow:hidden;}
+.mod-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;}
+.mc-cyan::before{background:var(--cyan);}
+.mc-gold::before{background:var(--gold);}
+.mc-green::before{background:var(--green);}
+.card-label{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:14px;display:block;}
+.concept-list{list-style:none;}
+.concept-list li{font-size:13px;color:#c0c4d0;padding:6px 0;border-bottom:1px solid var(--border);display:flex;gap:10px;line-height:1.5;}
+.concept-list li:last-child{border-bottom:none;}
+.concept-list li::before{content:'›';color:var(--cyan);flex-shrink:0;margin-top:1px;}
+.resource-list{list-style:none;}
+.resource-list li{padding:8px 0;border-bottom:1px solid var(--border);}
+.resource-list li:last-child{border-bottom:none;}
+.resource-list a{font-size:13px;color:var(--cyan);text-decoration:none;font-weight:500;display:block;margin-bottom:2px;transition:color 0.2s;}
+.resource-list a:hover{color:var(--gold2);}
+.resource-list .r-type{font-size:10px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;}
+.resource-list .r-note{font-size:11px;color:var(--muted);margin-top:1px;}
+.book-badge{display:inline-block;font-size:9px;font-weight:700;letter-spacing:1px;padding:2px 6px;border-radius:2px;text-transform:uppercase;background:rgba(200,169,110,0.1);color:var(--gold-dim);border:1px solid rgba(200,169,110,0.2);margin-left:6px;vertical-align:middle;}
+.exercise-card{background:rgba(200,169,110,0.04);border:1px solid rgba(200,169,110,0.2);border-radius:4px;padding:24px;position:relative;overflow:hidden;}
+.exercise-card::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:var(--gold);}
+.ex-label{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:6px;display:block;}
+.ex-title{font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text);margin-bottom:14px;}
+.ex-body{font-size:14px;font-weight:300;color:#9AAABB;line-height:1.75;}
+.ex-body strong{color:var(--text);font-weight:500;}
+.nav-arrows{display:flex;gap:12px;margin-top:32px;padding-top:24px;border-top:1px solid var(--border);}
+.nav-btn{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:11px 20px;border-radius:2px;cursor:pointer;transition:all 0.2s;text-decoration:none;}
+.nav-prev{color:var(--muted);background:transparent;border:1px solid var(--border);}
+.nav-prev:hover{color:var(--text);border-color:var(--muted);}
+.nav-next{color:var(--navy);background:var(--gold);}
+.nav-next:hover{background:var(--gold2);}
+
+/* COLOUR VARIANTS PER MODULE */
+.m1 .mod-rule,.m1 .concept-list li::before{background:var(--cyan);color:var(--cyan);}
+.m2 .mod-rule{background:linear-gradient(90deg,var(--green),transparent);}
+.m2 .concept-list li::before{color:var(--green);}
+.m3 .mod-rule{background:linear-gradient(90deg,var(--amber),transparent);}
+.m3 .concept-list li::before{color:var(--amber);}
+.m4 .mod-rule{background:linear-gradient(90deg,var(--orange),transparent);}
+.m4 .concept-list li::before{color:var(--orange);}
+.m5 .mod-rule{background:linear-gradient(90deg,var(--purple),transparent);}
+.m5 .concept-list li::before{color:var(--purple);}
+.m6 .mod-rule{background:linear-gradient(90deg,var(--cyan),transparent);}
+.m6 .concept-list li::before{color:var(--cyan);}
+.m7 .mod-rule{background:linear-gradient(90deg,var(--green),transparent);}
+.m7 .concept-list li::before{color:var(--green);}
+.m8 .mod-rule{background:linear-gradient(90deg,var(--gold),transparent);}
+.m8 .concept-list li::before{color:var(--gold);}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  header{padding:24px 20px 20px;}
+  .header-inner{flex-direction:column;align-items:flex-start;}
+  .header-right{text-align:left;}
+  .author-creds{justify-content:flex-start;}
+  .tabs{padding:0 16px;}
+  .panel-inner{padding:24px 16px 60px;}
+  .intro-grid,.mod-grid,.module-list,.meta-strip{grid-template-columns:1fr;}
+  .download-banner{padding:14px 20px;}
+  .download-inner{flex-direction:column;align-items:flex-start;}
+}
+</style>
+</head>
+<body>
+<div class="grid-bg"></div>
+
+<header>
+  <div class="header-inner">
+    <div>
+      <div class="header-eyebrow">Self-Study Programme · CPD Applicable</div>
+      <h1 class="header-title">People <em>Analytics</em></h1>
+      <div class="header-sub">Practical Applications Across the Stack · 8 Modules · 8 Weeks · 4–6 hrs/week</div>
+    </div>
+    <div class="header-right">
+      <div class="author-name">Lee C. Stonehouse</div>
+      <div class="author-creds">
+        <span class="cred-pill cp-gold">FCIPD</span>
+        <span class="cred-pill cp-cyan">MBA</span>
+        <span class="cred-pill cp-gold">Architect, PRIF</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="download-banner">
+  <div class="download-inner">
+    <div class="download-text"><strong>Free PDF version available.</strong> Download the full programme as a printable PDF to study offline.</div>
+    <a href="Lee_Stonehouse_FCIPD__AIinHR__8_Week_Course_PeopleAnalytics_.pdf" download class="dl-btn">&#8595; Download PDF</a>
+  </div>
+</div>
+
+<div class="tabs-wrap">
+  <div class="tabs">
+    <div class="tab active" onclick="showPanel('intro',this)">Overview</div>
+    <div class="tab" onclick="showPanel('m1',this)">01 · Strategic</div>
+    <div class="tab" onclick="showPanel('m2',this)">02 · Operational</div>
+    <div class="tab" onclick="showPanel('m3',this)">03 · Root Cause</div>
+    <div class="tab" onclick="showPanel('m4',this)">04 · Experiments</div>
+    <div class="tab" onclick="showPanel('m5',this)">05 · Psychometrics</div>
+    <div class="tab" onclick="showPanel('m6',this)">06 · Data Science 1</div>
+    <div class="tab" onclick="showPanel('m7',this)">07 · Data Science 2</div>
+    <div class="tab" onclick="showPanel('m8',this)">08 · Capstone</div>
+  </div>
+</div>
+
+<!-- INTRO -->
+<div id="intro" class="panel active">
+  <div class="panel-inner">
+    <div class="meta-strip">
+      <div class="meta-item"><div class="meta-num">8</div><div class="meta-label">Modules</div></div>
+      <div class="meta-item"><div class="meta-num">8</div><div class="meta-label">Weeks</div></div>
+      <div class="meta-item"><div class="meta-num">4–6</div><div class="meta-label">Hrs / Week</div></div>
+      <div class="meta-item"><div class="meta-num">CPD</div><div class="meta-label">Applicable</div></div>
+    </div>
+    <div class="intro-grid">
+      <div class="intro-card">
+        <h3>About This Programme</h3>
+        <p>This eight-week self-study programme is designed for senior HR and People leaders who want structured, rigorous grounding in People Analytics, applied directly to real-world challenges.<br><br>Each module combines core conceptual frameworks, a curated reading list of freely accessible resources, and a hands-on practical exercise that produces a tangible, interview-ready artefact.<br><br>Developed by Lee C. Stonehouse FCIPD, architect of the People Risk Intelligence Framework (PRIF). The PRIF is referenced throughout as primary applied evidence, particularly in the Week 8 capstone.</p>
+      </div>
+      <div class="intro-card">
+        <h3>How to Use This Programme</h3>
+        <ul>
+          <li>Commit 4–6 hours per week per module. Quality matters more than pace.</li>
+          <li>Complete each practical exercise before moving to the next module.</li>
+          <li>The Week 8 capstone business case is your primary interview artefact — treat it as live work.</li>
+          <li>All reading resources listed are freely accessible online unless marked as a book.</li>
+          <li>Book references link directly to Amazon UK for convenience.</li>
+        </ul>
+      </div>
+    </div>
+    <div style="margin-bottom:20px">
+      <span style="font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gold);">Programme Modules</span>
+    </div>
+    <div class="module-list">
+      <div class="ml-item" onclick="showPanelById('m1')"><div class="ml-num">01</div><div><div class="ml-title">Strategic Positioning</div><div class="ml-tag">Foundation</div></div></div>
+      <div class="ml-item" onclick="showPanelById('m2')"><div class="ml-num">02</div><div><div class="ml-title">Operational Excellence with Data</div><div class="ml-tag">Analytics</div></div></div>
+      <div class="ml-item" onclick="showPanelById('m3')"><div class="ml-num">03</div><div><div class="ml-title">Root Cause Analysis &amp; Project Tactics</div><div class="ml-tag">Diagnostic</div></div></div>
+      <div class="ml-item" onclick="showPanelById('m4')"><div class="ml-num">04</div><div><div class="ml-title">Designing Successful Experiments</div><div class="ml-tag">Experimental Design</div></div></div>
+      <div class="ml-item" onclick="showPanelById('m5')"><div class="ml-num">05</div><div><div class="ml-title">Psychometrics</div><div class="ml-tag">Assessment Science</div></div></div>
+      <div class="ml-item" onclick="showPanelById('m6')"><div class="ml-num">06</div><div><div class="ml-title">Organisational Data Science 1</div><div class="ml-tag">Data Science</div></div></div>
+      <div class="ml-item" onclick="showPanelById('m7')"><div class="ml-num">07</div><div><div class="ml-title">Organisational Data Science 2</div><div class="ml-tag">Predictive Modelling</div></div></div>
+      <div class="ml-item" onclick="showPanelById('m8')"><div class="ml-num">08</div><div><div class="ml-title">Transforming the Workplace</div><div class="ml-tag">Capstone</div></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- MODULE 1 -->
+<div id="m1" class="panel m1">
+  <div class="panel-inner">
+    <div class="mod-header">
+      <div class="mod-eyebrow"><span class="mod-week">Week 1</span><span class="mod-badge" style="background:rgba(126,184,212,0.12);color:var(--cyan);border:1px solid rgba(126,184,212,0.25);">Foundation</span></div>
+      <h2 class="mod-title">Strategic Positioning</h2>
+      <div class="mod-rule"></div>
+    </div>
+    <div class="mod-grid">
+      <div class="mod-card mc-cyan">
+        <span class="card-label">Core Concepts</span>
+        <ul class="concept-list">
+          <li>The business case for People Analytics: cost centre to value driver</li>
+          <li>Stakeholder mapping: identifying who needs what data and why</li>
+          <li>Aligning analytics strategy to commercial objectives</li>
+          <li>The maturity model: descriptive, diagnostic, predictive, prescriptive</li>
+          <li>Governance, ethics, and data privacy in workforce analytics</li>
+          <li>Presenting people data with credibility to boards and ExCo</li>
+        </ul>
+      </div>
+      <div class="mod-card mc-gold">
+        <span class="card-label">Reading &amp; Resources</span>
+        <ul class="resource-list">
+          <li>
+            <a href="https://hbr.org/2010/10/competing-on-talent-analytics" target="_blank">Competing on Talent Analytics</a>
+            <span class="r-type">HBR Article · Free</span>
+            <span class="r-note">Davenport, Harris &amp; Shapiro — Harvard Business Review, 2010</span>
+          </li>
+          <li>
+            <a href="https://www.cipd.org/en/knowledge/reports/people-data-driving-performance/" target="_blank">People Analytics: Driving Business Performance</a>
+            <span class="r-type">CIPD Report · Free</span>
+            <span class="r-note">Global survey of 3,852 HR professionals on people analytics practice</span>
+          </li>
+          <li>
+            <a href="https://www.amazon.co.uk/s?k=Investing+in+People+Boudreau+Cascio" target="_blank">Investing in People <span class="book-badge">Book</span></a>
+            <span class="r-type">Boudreau &amp; Cascio — Chapters 1–3</span>
+          </li>
+          <li>
+            <a href="https://joshbersin.com/research/" target="_blank">HR Technology Research &amp; Insights</a>
+            <span class="r-type">Josh Bersin · Free articles</span>
+            <span class="r-note">Bersin.com — HR technology frameworks and market analysis</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="exercise-card">
+      <span class="ex-label">Practical Exercise</span>
+      <div class="ex-title">Stakeholder Analytics Map</div>
+      <p class="ex-body">Draw a stakeholder map for your current or most recent organisation. For each key decision-maker (CEO, CFO, Board, line managers), define: <strong>the people question they are trying to answer</strong>, the data that would answer it, and the format that would make it credible to them. Identify which questions can be answered with data you already have, and which require new collection. This becomes your first analytics priority list.</p>
+    </div>
+    <div class="nav-arrows">
+      <span class="nav-btn nav-prev" onclick="showPanelById('intro')">&#8592; Overview</span>
+      <span class="nav-btn nav-next" onclick="showPanelById('m2')">Module 02 &#8594;</span>
+    </div>
+  </div>
+</div>
+
+<!-- MODULE 2 -->
+<div id="m2" class="panel m2">
+  <div class="panel-inner">
+    <div class="mod-header">
+      <div class="mod-eyebrow"><span class="mod-week">Week 2</span><span class="mod-badge" style="background:rgba(107,203,139,0.12);color:var(--green);border:1px solid rgba(107,203,139,0.25);">Analytics</span></div>
+      <h2 class="mod-title">Operational Excellence with Data</h2>
+      <div class="mod-rule"></div>
+    </div>
+    <div class="mod-grid">
+      <div class="mod-card mc-cyan">
+        <span class="card-label">Core Concepts</span>
+        <ul class="concept-list">
+          <li>Defining meaningful HR KPIs: leading vs lagging indicators</li>
+          <li>Workforce cost metrics: cost per hire, cost of turnover, payroll efficiency</li>
+          <li>Time-to-productivity and onboarding ROI measurement</li>
+          <li>Absence and presenteeism analytics</li>
+          <li>Dashboard design: what to show, what to hide, and why</li>
+          <li>Data quality fundamentals: cleaning, validating, and trusting your inputs</li>
+        </ul>
+      </div>
+      <div class="mod-card mc-gold">
+        <span class="card-label">Reading &amp; Resources</span>
+        <ul class="resource-list">
+          <li>
+            <a href="https://www.amazon.co.uk/s?k=The+New+HR+Analytics+Fitz-enz" target="_blank">The New HR Analytics <span class="book-badge">Book</span></a>
+            <span class="r-type">Fitz-enz — Chapters 4–7</span>
+          </li>
+          <li>
+            <a href="https://www.shrm.org/topics-tools/tools/toolkits/how-to-measure-and-report-on-human-capital" target="_blank">How to Measure and Report on Human Capital</a>
+            <span class="r-type">SHRM Toolkit · Free</span>
+            <span class="r-note">Practical HR metrics framework — shrm.org</span>
+          </li>
+          <li>
+            <a href="https://learn.microsoft.com/en-us/training/paths/create-use-analytics-reports-power-bi/" target="_blank">Power BI Analytics Learning Path</a>
+            <span class="r-type">Microsoft Learn · Free</span>
+            <span class="r-note">Official guided learning — learn.microsoft.com</span>
+          </li>
+          <li>
+            <a href="https://www.coursera.org/professional-certificates/google-data-analytics" target="_blank">Google Data Analytics Certificate</a>
+            <span class="r-type">Coursera · Free audit available</span>
+            <span class="r-note">Module 3: Data Analysis fundamentals</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="exercise-card">
+      <span class="ex-label">Practical Exercise</span>
+      <div class="ex-title">KPI Audit &amp; Dashboard Sketch</div>
+      <p class="ex-body">Using your own organisation's data or a mock dataset, identify your <strong>top eight operational HR KPIs</strong>. For each: state the formula, the data source, the reporting frequency, and the threshold that would trigger action. Then sketch a single-page executive dashboard showing all eight without clutter. Apply the principle: one number, one trend line, one traffic light per KPI.</p>
+    </div>
+    <div class="nav-arrows">
+      <span class="nav-btn nav-prev" onclick="showPanelById('m1')">&#8592; Module 01</span>
+      <span class="nav-btn nav-next" onclick="showPanelById('m3')">Module 03 &#8594;</span>
+    </div>
+  </div>
+</div>
+
+<!-- MODULE 3 -->
+<div id="m3" class="panel m3">
+  <div class="panel-inner">
+    <div class="mod-header">
+      <div class="mod-eyebrow"><span class="mod-week">Week 3</span><span class="mod-badge" style="background:rgba(212,160,32,0.12);color:var(--amber);border:1px solid rgba(212,160,32,0.25);">Diagnostic</span></div>
+      <h2 class="mod-title">Root Cause Analysis &amp; Project Tactics</h2>
+      <div class="mod-rule"></div>
+    </div>
+    <div class="mod-grid">
+      <div class="mod-card mc-cyan">
+        <span class="card-label">Core Concepts</span>
+        <ul class="concept-list">
+          <li>Moving from symptoms to causes: the diagnostic mindset in HR</li>
+          <li>Ishikawa diagrams applied to workforce problems</li>
+          <li>The 5 Whys technique: structured problem decomposition</li>
+          <li>Pareto analysis: 20% of causes driving 80% of problems</li>
+          <li>Project scoping for People Analytics initiatives</li>
+          <li>Avoiding the correlation/causation trap in HR data</li>
+        </ul>
+      </div>
+      <div class="mod-card mc-gold">
+        <span class="card-label">Reading &amp; Resources</span>
+        <ul class="resource-list">
+          <li>
+            <a href="https://asq.org/quality-resources/lean" target="_blank">Lean Six Sigma for HR — Overview</a>
+            <span class="r-type">ASQ.org · Free</span>
+            <span class="r-note">American Society for Quality — lean methodology resources</span>
+          </li>
+          <li>
+            <a href="https://www.mckinsey.com/capabilities/strategy-and-corporate-finance/our-insights/the-mece-principle" target="_blank">The MECE Principle Explained</a>
+            <span class="r-type">McKinsey · Free</span>
+            <span class="r-note">Mutually exclusive, collectively exhaustive problem structuring</span>
+          </li>
+          <li>
+            <a href="https://www.amazon.co.uk/s?k=Analytics+in+HR+Anderson+Kreitmayer" target="_blank">Analytics in HR <span class="book-badge">Book</span></a>
+            <span class="r-type">Anderson &amp; Kreitmayer — Diagnostic methodology chapters</span>
+          </li>
+          <li>
+            <a href="https://www.amazon.co.uk/s?k=Thinking+Fast+and+Slow+Kahneman" target="_blank">Thinking Fast and Slow <span class="book-badge">Book</span></a>
+            <span class="r-type">Kahneman — Chapters 14–16: bias in causal reasoning</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="exercise-card">
+      <span class="ex-label">Practical Exercise</span>
+      <div class="ex-title">Root Cause Drill</div>
+      <p class="ex-body">Pick a real workforce problem you have encountered. Build a full <strong>fishbone diagram</strong> identifying all plausible causes across six categories: People, Process, Policy, Management, Environment, and Data. Apply the 5 Whys to the two most likely causes. Write a one-page problem statement suitable for CEO decision-making.</p>
+    </div>
+    <div class="nav-arrows">
+      <span class="nav-btn nav-prev" onclick="showPanelById('m2')">&#8592; Module 02</span>
+      <span class="nav-btn nav-next" onclick="showPanelById('m4')">Module 04 &#8594;</span>
+    </div>
+  </div>
+</div>
+
+<!-- MODULE 4 -->
+<div id="m4" class="panel m4">
+  <div class="panel-inner">
+    <div class="mod-header">
+      <div class="mod-eyebrow"><span class="mod-week">Week 4</span><span class="mod-badge" style="background:rgba(212,120,64,0.12);color:var(--orange);border:1px solid rgba(212,120,64,0.25);">Experimental Design</span></div>
+      <h2 class="mod-title">Designing Successful Experiments</h2>
+      <div class="mod-rule"></div>
+    </div>
+    <div class="mod-grid">
+      <div class="mod-card mc-cyan">
+        <span class="card-label">Core Concepts</span>
+        <ul class="concept-list">
+          <li>Randomised Controlled Trials (RCTs) in organisational settings</li>
+          <li>A/B testing applied to HR interventions: onboarding, L&amp;D, performance</li>
+          <li>Natural experiments: using existing organisational variation as a test</li>
+          <li>Control groups, confounders, and selection bias</li>
+          <li>Statistical vs practical significance: what HR leaders need</li>
+          <li>Ethical constraints on experimentation with employees</li>
+        </ul>
+      </div>
+      <div class="mod-card mc-gold">
+        <span class="card-label">Reading &amp; Resources</span>
+        <ul class="resource-list">
+          <li>
+            <a href="https://www.amazon.co.uk/s?k=Trustworthy+Online+Controlled+Experiments+Kohavi" target="_blank">Trustworthy Online Controlled Experiments <span class="book-badge">Book</span></a>
+            <span class="r-type">Kohavi, Tang &amp; Xu — Chapter 1 widely shared online</span>
+          </li>
+          <li>
+            <a href="https://www.aihr.com/blog/people-analytics/" target="_blank">People Analytics in Practice</a>
+            <span class="r-type">AIHR Academy · Free tier available</span>
+            <span class="r-note">aihr.com — practical people analytics guides and frameworks</span>
+          </li>
+          <li>
+            <a href="https://rework.withgoogle.com/en/guides/managers-identify-what-makes-a-great-manager" target="_blank">Project Oxygen — What Makes a Great Manager</a>
+            <span class="r-type">Google re:Work · Free</span>
+            <span class="r-note">rework.withgoogle.com — real-world HR experiment case study</span>
+          </li>
+          <li>
+            <a href="https://www.amazon.co.uk/s?k=Judgment+Managerial+Decision+Making+Bazerman+Moore" target="_blank">Judgment in Managerial Decision Making <span class="book-badge">Book</span></a>
+            <span class="r-type">Bazerman &amp; Moore — Experimental thinking chapters</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="exercise-card">
+      <span class="ex-label">Practical Exercise</span>
+      <div class="ex-title">Experiment Design Template</div>
+      <p class="ex-body">Design a People Analytics experiment for one of: (a) structured 30-day onboarding vs 90-day retention, (b) weekly manager check-ins vs absence rates, or (c) pay transparency vs internal promotion applications. Write a one-page design covering <strong>hypothesis, treatment group, control group, success metric, timeline, and confounder controls</strong>. Identify ethical risks and mitigations.</p>
+    </div>
+    <div class="nav-arrows">
+      <span class="nav-btn nav-prev" onclick="showPanelById('m3')">&#8592; Module 03</span>
+      <span class="nav-btn nav-next" onclick="showPanelById('m5')">Module 05 &#8594;</span>
+    </div>
+  </div>
+</div>
+
+<!-- MODULE 5 -->
+<div id="m5" class="panel m5">
+  <div class="panel-inner">
+    <div class="mod-header">
+      <div class="mod-eyebrow"><span class="mod-week">Week 5</span><span class="mod-badge" style="background:rgba(168,126,200,0.12);color:var(--purple);border:1px solid rgba(168,126,200,0.25);">Assessment Science</span></div>
+      <h2 class="mod-title">Psychometrics</h2>
+      <div class="mod-rule"></div>
+    </div>
+    <div class="mod-grid">
+      <div class="mod-card mc-cyan">
+        <span class="card-label">Core Concepts</span>
+        <ul class="concept-list">
+          <li>Reliability and validity: the two pillars of any assessment tool</li>
+          <li>The Big Five personality model and predictive validity in work settings</li>
+          <li>Cognitive ability testing: what it measures and why it predicts performance</li>
+          <li>Situational Judgement Tests (SJTs) and structured interviews</li>
+          <li>Bias, adverse impact, and protected characteristics in assessment design</li>
+          <li>AI-powered assessment tools: promise and risk in current applications</li>
+        </ul>
+      </div>
+      <div class="mod-card mc-gold">
+        <span class="card-label">Reading &amp; Resources</span>
+        <ul class="resource-list">
+          <li>
+            <a href="https://scholar.google.com/scholar?q=Schmidt+Hunter+1998+validity+selection+methods" target="_blank">The Validity of Selection Methods (1998)</a>
+            <span class="r-type">Schmidt &amp; Hunter · Classic meta-analysis</span>
+            <span class="r-note">Search Google Scholar — widely cited, multiple free PDFs available</span>
+          </li>
+          <li>
+            <a href="https://www.shl.com/resources/" target="_blank">Assessment Validity Research Papers</a>
+            <span class="r-type">SHL Research · Free downloads</span>
+            <span class="r-note">shl.com/resources — evidence base for psychometric tools</span>
+          </li>
+          <li>
+            <a href="https://www.cipd.org/en/knowledge/factsheets/selection-factsheet/" target="_blank">Assessment and Selection Factsheet</a>
+            <span class="r-type">CIPD · Free</span>
+            <span class="r-note">cipd.org — best practice in selection and assessment</span>
+          </li>
+          <li>
+            <a href="https://www.amazon.co.uk/s?k=Noise+Kahneman+Sibony" target="_blank">Noise: A Flaw in Human Judgment <span class="book-badge">Book</span></a>
+            <span class="r-type">Kahneman, Sibony &amp; Sunstein — Chapters 14–17</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="exercise-card">
+      <span class="ex-label">Practical Exercise</span>
+      <div class="ex-title">Assessment Audit</div>
+      <p class="ex-body">Map out the selection process for a senior People leadership hire. For each stage, identify: what it measures, the evidence base for its predictive validity, and whether it carries adverse impact risk against any protected characteristic. <strong>Redesign the process</strong> to maximise validity and minimise bias. Prepare a one-page hiring manager briefing.</p>
+    </div>
+    <div class="nav-arrows">
+      <span class="nav-btn nav-prev" onclick="showPanelById('m4')">&#8592; Module 04</span>
+      <span class="nav-btn nav-next" onclick="showPanelById('m6')">Module 06 &#8594;</span>
+    </div>
+  </div>
+</div>
+
+<!-- MODULE 6 -->
+<div id="m6" class="panel m6">
+  <div class="panel-inner">
+    <div class="mod-header">
+      <div class="mod-eyebrow"><span class="mod-week">Week 6</span><span class="mod-badge" style="background:rgba(126,184,212,0.12);color:var(--cyan);border:1px solid rgba(126,184,212,0.25);">Data Science</span></div>
+      <h2 class="mod-title">Organisational Data Science 1</h2>
+      <div class="mod-rule"></div>
+    </div>
+    <div class="mod-grid">
+      <div class="mod-card mc-cyan">
+        <span class="card-label">Core Concepts</span>
+        <ul class="concept-list">
+          <li>Descriptive statistics: mean, median, mode, standard deviation in HR context</li>
+          <li>Correlation analysis: interpreting r values and scatterplots for HR decisions</li>
+          <li>Regression fundamentals: predicting turnover, performance, or absence</li>
+          <li>Segmentation analysis: cohort analysis, tenure bands, demographic breakdowns</li>
+          <li>Survey data analysis: Likert scales, NPS, eNPS methodology</li>
+          <li>Visualising distributions: histograms, box plots, and when to use each</li>
+        </ul>
+      </div>
+      <div class="mod-card mc-gold">
+        <span class="card-label">Reading &amp; Resources</span>
+        <ul class="resource-list">
+          <li>
+            <a href="https://www.khanacademy.org/math/statistics-probability" target="_blank">Statistics and Probability</a>
+            <span class="r-type">Khan Academy · Free</span>
+            <span class="r-note">khanacademy.org — complete statistics curriculum, no account required</span>
+          </li>
+          <li>
+            <a href="https://learn.microsoft.com/en-us/training/paths/create-use-analytics-reports-power-bi/" target="_blank">Power BI Statistical Functions Guide</a>
+            <span class="r-type">Microsoft Learn · Free</span>
+            <span class="r-note">CORREL, LINEST, STDEV in Power BI and Excel</span>
+          </li>
+          <li>
+            <a href="https://www.amazon.co.uk/s?k=Predictive+Analytics+Human+Resources+Fitz-enz+Mattox" target="_blank">Predictive Analytics for Human Resources <span class="book-badge">Book</span></a>
+            <span class="r-type">Fitz-enz &amp; Mattox — Chapters 5–8</span>
+          </li>
+          <li>
+            <a href="https://www.youtube.com/@statquest" target="_blank">StatQuest with Josh Starmer</a>
+            <span class="r-type">YouTube · Free</span>
+            <span class="r-note">Regression and correlation playlists — clear, practical explanations</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="exercise-card">
+      <span class="ex-label">Practical Exercise</span>
+      <div class="ex-title">Workforce Regression Build</div>
+      <p class="ex-body">Using your Power BI dataset or any HR dataset with 30+ records, run a <strong>correlation analysis</strong> between two variables: e.g. tenure vs absence rate, team size vs ER incident rate, or manager tenure vs engagement score. Interpret the r value, plot the scatterplot, and write a three-sentence executive summary. Identify at least two confounders that could explain the relationship.</p>
+    </div>
+    <div class="nav-arrows">
+      <span class="nav-btn nav-prev" onclick="showPanelById('m5')">&#8592; Module 05</span>
+      <span class="nav-btn nav-next" onclick="showPanelById('m7')">Module 07 &#8594;</span>
+    </div>
+  </div>
+</div>
+
+<!-- MODULE 7 -->
+<div id="m7" class="panel m7">
+  <div class="panel-inner">
+    <div class="mod-header">
+      <div class="mod-eyebrow"><span class="mod-week">Week 7</span><span class="mod-badge" style="background:rgba(107,203,139,0.12);color:var(--green);border:1px solid rgba(107,203,139,0.25);">Predictive Modelling</span></div>
+      <h2 class="mod-title">Organisational Data Science 2</h2>
+      <div class="mod-rule"></div>
+    </div>
+    <div class="mod-grid">
+      <div class="mod-card mc-cyan">
+        <span class="card-label">Core Concepts</span>
+        <ul class="concept-list">
+          <li>Predictive modelling in HR: flight risk, performance prediction, hiring success</li>
+          <li>Machine learning basics: supervised vs unsupervised learning in workforce context</li>
+          <li>Decision trees and random forests: intuition without the mathematics</li>
+          <li>NLP in HR: sentiment analysis and exit interview data mining</li>
+          <li>Organisational Network Analysis (ONA): mapping informal influence</li>
+          <li>Model governance: explainability, fairness, and accountability</li>
+        </ul>
+      </div>
+      <div class="mod-card mc-gold">
+        <span class="card-label">Reading &amp; Resources</span>
+        <ul class="resource-list">
+          <li>
+            <a href="https://developers.google.com/machine-learning/crash-course" target="_blank">Machine Learning Crash Course</a>
+            <span class="r-type">Google · Free</span>
+            <span class="r-note">developers.google.com — foundational ML concepts, no maths required</span>
+          </li>
+          <li>
+            <a href="https://www.ibm.com/thought-leadership/institute-business-value/en-us/report/predictive-analytics-human-resources" target="_blank">Predictive Analytics in HR</a>
+            <span class="r-type">IBM Smarter Workforce · Free whitepaper</span>
+            <span class="r-note">IBM Institute for Business Value — workforce analytics report</span>
+          </li>
+          <li>
+            <a href="https://www.amazon.co.uk/s?k=I+Human+Chamorro-Premuzic" target="_blank">I, Human <span class="book-badge">Book</span></a>
+            <span class="r-type">Chamorro-Premuzic — AI and human decision-making</span>
+          </li>
+          <li>
+            <a href="https://www.microsoft.com/en-gb/microsoft-viva/insights" target="_blank">Microsoft Viva Insights — ONA Methodology</a>
+            <span class="r-type">Microsoft · Free documentation</span>
+            <span class="r-note">Organisational Network Analysis tools and methodology</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="exercise-card">
+      <span class="ex-label">Practical Exercise</span>
+      <div class="ex-title">Flight Risk Model Design</div>
+      <p class="ex-body">Design a conceptual predictive model for voluntary turnover risk. Identify eight+ input variables covering demographic, behavioural, and engagement data. For each: state the data source, collection method, and hypothesised direction of effect. Then write a <strong>one-page model governance brief</strong> for a Board Risk Committee covering decision use, output visibility, and safeguards against discriminatory application.</p>
+    </div>
+    <div class="nav-arrows">
+      <span class="nav-btn nav-prev" onclick="showPanelById('m6')">&#8592; Module 06</span>
+      <span class="nav-btn nav-next" onclick="showPanelById('m8')">Module 08 &#8594;</span>
+    </div>
+  </div>
+</div>
+
+<!-- MODULE 8 -->
+<div id="m8" class="panel m8">
+  <div class="panel-inner">
+    <div class="mod-header">
+      <div class="mod-eyebrow"><span class="mod-week">Week 8</span><span class="mod-badge" style="background:rgba(200,169,110,0.12);color:var(--gold);border:1px solid rgba(200,169,110,0.25);">Capstone</span></div>
+      <h2 class="mod-title">Transforming the Workplace</h2>
+      <div class="mod-rule"></div>
+    </div>
+    <div class="mod-grid">
+      <div class="mod-card mc-cyan">
+        <span class="card-label">Core Concepts</span>
+        <ul class="concept-list">
+          <li>AI augmentation vs automation: workforce transition strategy</li>
+          <li>Skills-based organisations: from job architecture to capability frameworks</li>
+          <li>The future of work: hybrid, distributed, async, and human-AI collaboration</li>
+          <li>Change management for People Analytics adoption: winning over sceptics</li>
+          <li>Building a data-literate HR team: capability uplift and change sequencing</li>
+          <li>Measuring the ROI of People Analytics investment: closing the loop</li>
+        </ul>
+      </div>
+      <div class="mod-card mc-gold">
+        <span class="card-label">Reading &amp; Resources</span>
+        <ul class="resource-list">
+          <li>
+            <a href="https://www.amazon.co.uk/s?k=Redesigning+Work+Lynda+Gratton" target="_blank">Redesigning Work <span class="book-badge">Book</span></a>
+            <span class="r-type">Lynda Gratton — Core strategic framework for future of work</span>
+          </li>
+          <li>
+            <a href="https://www.weforum.org/publications/the-future-of-jobs-report-2025/" target="_blank">Future of Jobs Report 2025</a>
+            <span class="r-type">World Economic Forum · Free download</span>
+            <span class="r-note">weforum.org — definitive annual workforce trends report</span>
+          </li>
+          <li>
+            <a href="https://www2.deloitte.com/us/en/insights/focus/human-capital-trends.html" target="_blank">Global Human Capital Trends</a>
+            <span class="r-type">Deloitte · Free annual report</span>
+            <span class="r-note">deloitte.com — leading HR strategy and workforce insights</span>
+          </li>
+          <li>
+            <a href="https://lcsaihr.com/#prif" target="_blank">PRIF Architecture Documentation</a>
+            <span class="r-type">Lee C. Stonehouse · Primary evidence</span>
+            <span class="r-note">Your own PRIF build is the capstone primary reference — lcsaihr.com</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="exercise-card">
+      <span class="ex-label">Capstone Exercise</span>
+      <div class="ex-title">People Analytics Business Case</div>
+      <p class="ex-body">Write a <strong>board-ready business case</strong> for implementing a People Analytics function in a 500-person, Series C fintech. Cover: current state gap, proposed architecture (data sources, tools, governance), investment required, expected ROI with three measurable outcomes, and a 12-month implementation roadmap. No more than four pages. Reference specific tools, methodologies, and metrics from all eight modules. <strong>This is your interview-ready artefact.</strong></p>
+    </div>
+    <div style="margin-top:28px;background:rgba(200,169,110,0.06);border:1px solid rgba(200,169,110,0.2);border-radius:4px;padding:24px;">
+      <span style="font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:10px;">Programme Complete</span>
+      <p style="font-size:14px;color:#9AAABB;line-height:1.7;margin-bottom:16px;">You have completed the eight-week programme. Your capstone business case is your primary evidence of analytical capability. Download the PDF version to share with colleagues or use as a CPD record.</p>
+      <a href="Lee_Stonehouse_FCIPD__AIinHR__8_Week_Course_PeopleAnalytics_.pdf" download class="dl-btn" style="display:inline-flex;">&#8595; Download Full Programme PDF</a>
+    </div>
+    <div class="nav-arrows">
+      <span class="nav-btn nav-prev" onclick="showPanelById('m7')">&#8592; Module 07</span>
+      <span class="nav-btn nav-next" onclick="showPanelById('intro')">&#8593; Back to Overview</span>
+    </div>
+  </div>
+</div>
+
+<script>
+  function showPanel(id, tab) {
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    if(tab) tab.classList.add('active');
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+  function showPanelById(id) {
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    const idx = ['intro','m1','m2','m3','m4','m5','m6','m7','m8'].indexOf(id);
+    if(idx >= 0) document.querySelectorAll('.tab')[idx].classList.add('active');
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+</script>
+</body>
+</html>
