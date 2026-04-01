@@ -229,6 +229,12 @@
     font-size: 0.9rem;
     line-height: 1.7;
   }
+  .innovation-card--plus {
+    border: 1px dashed rgba(255,255,255,0.12);
+    background: transparent;
+  }
+  .innovation-card--plus:hover { background: var(--surface); }
+  .innovation-card--plus .innovation-icon { opacity: 0.6; }
 
   /* ARCHITECTURE */
   .architecture {
@@ -577,19 +583,19 @@
       <p>The proprietary Employee Non-Compliance (ENC) Model automatically assigns legally-aligned severity scores (1–3) to all conduct, performance, absence, and self-reported events. Consistent global policy application without manual HR judgement at point of incident.</p>
     </div>
     <div class="innovation-card">
-      <span class="innovation-icon">02 · Infrastructure</span>
-      <h3>Vendor Consolidation</h3>
-      <p>Microsoft Fabric replaces traditional ETL pipelines, separate data warehouse infrastructure, and middleware layers in a single unified platform. Estimated 40% reduction in data infrastructure costs while improving data freshness and query performance.</p>
-    </div>
-    <div class="innovation-card">
-      <span class="innovation-icon">03 · Intelligence</span>
+      <span class="innovation-icon">02 · Intelligence</span>
       <h3>AI-Driven Insights</h3>
       <p>Generative AI layer (Claude API / Microsoft Copilot) provides predictive attrition modelling, compliance risk alerts, and natural language investigation summaries. Executive-level insights without requiring SQL or BI tool expertise.</p>
     </div>
     <div class="innovation-card">
-      <span class="innovation-icon">04 · Access</span>
+      <span class="innovation-icon">03 · Access</span>
       <h3>Single Source of Truth</h3>
       <p>The HRIS serves as the operational interface for all credentialed users with embedded Power BI dashboards via custom tabs. Line managers, HR Business Partners, and C-suite each see role-appropriate views — all within one system, governed by Row-Level Security.</p>
+    </div>
+    <div class="innovation-card innovation-card--plus">
+      <span class="innovation-icon">+ · Infrastructure Enabler</span>
+      <h3>Vendor Consolidation</h3>
+      <p>Microsoft Fabric replaces traditional ETL pipelines, separate data warehouse infrastructure, and middleware layers in a single unified platform. Estimated 40% reduction in data infrastructure costs while improving data freshness and query performance.</p>
     </div>
   </div>
 </section>
